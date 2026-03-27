@@ -88,9 +88,8 @@ projectflow/
 │   ├── package.json
 │   ├── tsconfig.json
 │   ├── .env                      # Backend environment variables
-│   └── .env.example
+│   ├── .env.example
 ├── middleware.ts                 # Next.js middleware
-├── docker-compose.yml            # Docker services
 ├── package.json                  # Frontend dependencies
 └── README.md                     # This file
 ```
@@ -99,20 +98,26 @@ projectflow/
 
 ### Prerequisites
 - Node.js 18+ and pnpm
-- Docker & Docker Compose
-- PostgreSQL 15+ (if not using Docker)
+- PostgreSQL 15+ (installed and running locally)
 
 ### Installation
 
-1. **Clone the repository**
+1. **Create PostgreSQL database**
+```bash
+# Connect to PostgreSQL
+psql -U postgres
+
+# Create the database
+CREATE DATABASE projectflow_db;
+
+# You can verify with
+\l
+```
+
+2. **Clone the repository**
 ```bash
 git clone <repository-url>
 cd projectflow
-```
-
-2. **Setup PostgreSQL with Docker**
-```bash
-docker-compose up -d
 ```
 
 3. **Install frontend dependencies**
@@ -128,13 +133,13 @@ pnpm install
 
 5. **Configure environment variables**
 
-Backend (`backend/.env`):
+Backend (`backend/.env`) - Update with your PostgreSQL credentials:
 ```bash
 DB_HOST=localhost
 DB_PORT=5432
-DB_USERNAME=projectflow
-DB_PASSWORD=projectflow123
-DB_DATABASE=projectflow
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_DATABASE=projectflow_db
 JWT_SECRET=your-secret-key-change-in-production
 ```
 
